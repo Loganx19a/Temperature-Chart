@@ -10,9 +10,6 @@ lines = path.read_text().splitlines()   # read the file and chain the splitlines
 reader = csv.reader(lines) # create a reader object using csv.reader() and pass it the list of lines from the csv file
 header_row = next(reader) # gets the first line of the file, which contains the file headers
 
-for index, column_header in enumerate(header_row):
-    print(index, column_header)
-
 # extract the dates and high temperatures
 dates, highs, lows = [], [], []
 # since we already read the header row, the loop will begin at the second line where the actual data begins
@@ -27,8 +24,9 @@ for row in reader:
 # plot the high temperatures
 plt.style.use('ggplot')
 fig, ax = plt.subplots(figsize=(10, 6))
-ax.plot(dates, highs, color='firebrick')
-ax.plot(dates, lows, color='blue')
+ax.plot(dates, highs, color='firebrick', alpha=0.5)
+ax.plot(dates, lows, color='blue', alpha=0.5)
+ax.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)
 
 # formal plot
 ax.set_title("Daily High and Low Temperatures, 2021", fontsize=24)
